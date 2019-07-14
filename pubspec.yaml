@@ -46,6 +46,9 @@ flutter:
     - assets/card2.jpg
     - assets/card3.jpg
     - assets/logo.png
+    - assets/pageSwiper/popsicle.png
+    - assets/pageSwiper/pudding.png
+    - assets/pageSwiper/tower.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

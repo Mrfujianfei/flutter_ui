@@ -1,4 +1,5 @@
 import 'package:demo/book-reader/home.dart';
+import 'package:demo/pageSwiper/page-swiper.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -15,7 +16,7 @@ class _MyAppState extends State<MyApp> {
       title: "flutter demo",
       debugShowCheckedModeBanner:false,
       // theme: ThemeData(primarySwatch: Colors.lightGreen),
-      home: HomePageDemo(),
+      home: PageSwiper(),
     );
   }
 }
