@@ -11,8 +11,9 @@ class PageSwiper extends StatefulWidget {
   _PageSwiperState createState() => _PageSwiperState();
 }
 
-class _PageSwiperState extends State<PageSwiper> {
+class _PageSwiperState extends State<PageSwiper> with TickerProviderStateMixin {
   StreamController<SlideUpdate> slideUpdateStream;
+  AnimatedPageDragger animatedPageDragger;
   int activeIndex = 0;
   int nextPageIndex = 0;
   SlideDirection slideDirection = SlideDirection.none;
@@ -20,10 +21,13 @@ class _PageSwiperState extends State<PageSwiper> {
   _PageSwiperState() {
     slideUpdateStream = new StreamController<SlideUpdate>();
     slideUpdateStream.stream.listen((SlideUpdate event) {
+      print(event.updateType);
       setState(() {
         if (event.updateType == UpdateType.dragging) {
           slideDirection = event.direction;
           slidePercent = event.slidePercent;
+          print('888888方向');
+          print(slideDirection);
 
           if (slideDirection == SlideDirection.leftToRight) {
             nextPageIndex = activeIndex - 1;
@@ -33,13 +37,32 @@ class _PageSwiperState extends State<PageSwiper> {
             nextPageIndex = activeIndex;
           }
         } else if (event.updateType == UpdateType.doneDragging) {
+          print("-----------防守");
+          print(slideDirection);
           if (slidePercent > 0.5) {
-            activeIndex = slideDirection == SlideDirection.leftToRight
-                ? activeIndex - 1
-                : activeIndex + 1;
+            animatedPageDragger = new AnimatedPageDragger(
+                slideDirection: slideDirection,
+                translationGoal: TransitionGoal.open,
+                slidePercent: slidePercent,
+                slideUpdateStream: slideUpdateStream,
+                vsync: this);
+          } else {
+            animatedPageDragger = new AnimatedPageDragger(
+                slideDirection: slideDirection,
+                translationGoal: TransitionGoal.close,
+                slidePercent: slidePercent,
+                slideUpdateStream: slideUpdateStream,
+                vsync: this);
           }
+          animatedPageDragger.run();
+        } else if (event.updateType == UpdateType.animating) {
+          slideDirection = event.direction;
+          slidePercent = event.slidePercent;
+        } else if (event.updateType == UpdateType.doneAnimating) {
+          activeIndex = slidePercent > 0.5 ? nextPageIndex : activeIndex;
           slideDirection = SlideDirection.none;
           slidePercent = 0.0;
+          animatedPageDragger.dispose();
         }
       });
     });
