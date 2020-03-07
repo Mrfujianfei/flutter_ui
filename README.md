@@ -1,7 +1,12 @@
 # Flutter UI挑战
 
-### Demo 1 
-效果还有很大的改进空间，如图所示。<br />
+### Demo
 由于图片较大，建议加载完再看。<br />
 <br />
-![avatar](./assets/book_read_2.gif)
+![avatar](./assets/readMe/demo1.gif)
+<br />
+![avatar](./assets/readMe/demo2.gif)
+<br />
+![avatar](./assets/readMe/demo3.gif)
+<br />
+![avatar](./assets/readMe/demo4.gif)

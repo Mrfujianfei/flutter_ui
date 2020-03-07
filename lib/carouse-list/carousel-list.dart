@@ -96,7 +96,10 @@ class _CarouseListState extends State<CarouseList> {
                     controller: controller,
                     reverse: true,
                     itemBuilder: (context, index) {
-                      return Container();
+                      return Container(
+                          // color: Colors.red,
+                          // child: Text("${index}asdf"),
+                          );
                     },
                   ),
                 )
